@@ -7,17 +7,18 @@ include_directories(include)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake) 
 
-find_package(Boost COMPONENTS program_options REQUIRED)
+find_package(Boost COMPONENTS regex REQUIRED)
 
 add_executable(project_name src/main.cpp
               )
 
-target_link_libraries(project_name ${Boost_PROGRAM_OPTIONS_LIBRARY})
-
 # Testing
 find_package(CppUnit REQUIRED)
 add_executable(UnitTester test/main.cpp
+                          test/SampleTest.cpp
               )
 
-target_link_libraries(UnitTester ${CPPUNIT_LIBRARIES})
+target_link_libraries(UnitTester ${CPPUNIT_LIBRARIES}
+                                 ${Boost_REGEX_LIBRARY}
+                                 )
 
