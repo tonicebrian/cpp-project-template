@@ -1,4 +1,8 @@
 #include <cppunit/extensions/HelperMacros.h>
+#include <vector>
+#include "TestUtils.hpp"
+
+
 
 class classUnderTestTest : public CppUnit::TestFixture {
     CPPUNIT_TEST_SUITE(classUnderTestTest);
@@ -14,7 +18,9 @@ class classUnderTestTest : public CppUnit::TestFixture {
     }
 
     void testFunctionOrMethod(){
-        CPPUNIT_ASSERT_EQUAL(1,0);
+        std::vector<int> a = {1,2,3};
+        std::vector<int> b = {4,5,6};
+        CPPUNIT_ASSERT_EQUAL(a,b);
     }
 };
 

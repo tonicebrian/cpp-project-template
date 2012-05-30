@@ -2,27 +2,36 @@
 #define _TESTUTILS_HPP_ 
 
 #include <iostream>
-#include <utility>
-#include <map>
 #include <sstream>
+#include <vector>
+#include "PrettyPrint.hpp"
 
 
-template<class S,class T>
-std::ostream& operator<<(std::ostream & o, const std::pair<S,T> & p)
-{
-      return o << "(" << p.first << ", " << p.second << ")";
-}
+namespace CppUnit{
+    template<class X>
+    struct assertion_traits<std::vector<X>>{
+        static bool equal(const std::vector<X> &a, const std::vector<X> &b){
+            return std::equal(a.begin(),a.end(),b.begin());
+        }
+        static std::string toString(const std::vector<X> &p){
+            std::ostringstream o;
+            o << p;
+            return o.str();
+        }
+    };
 
-template<class K, class V> 
-std::ostream& operator<<(std::ostream& o, const std::map<K,V> & m){
-    o << "{ ";
-    for(auto it=m.begin();it!=m.end();it++){ 
-       o << "{" << it->first <<": " << it->second << "} ";
-    }
-    o << " }";
-    return o;
-}
-
+    template<class A, class B>
+    struct assertion_traits<std::pair<A,B>>{
+        static bool equal(const std::pair<A,B> &a, const std::pair<A,B> &b){
+            return (a.first == b.first) & (a.second == b.second);
+        }
+        static std::string toString(const std::pair<A,B> &p){
+            std::ostringstream o;
+            o << p;
+            return o.str();
+        }
+    };
+};
 
 #endif 
 

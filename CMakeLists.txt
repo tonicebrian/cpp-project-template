@@ -14,6 +14,7 @@ add_executable(project_name src/main.cpp
 
 # Testing
 find_package(CppUnit REQUIRED)
+include_directories(include test)
 add_executable(UnitTester test/main.cpp
                           test/SampleTest.cpp
               )
